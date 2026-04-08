@@ -6,7 +6,7 @@ export default {
       colors: {
         irfane: {
           dark: "#2e7d32",
-          green: "#4caf50",
+          violet: "#4caf50",
           light: "#a5d6a7",
           orange: "#ff9800",
           yellow: "#ffc107",

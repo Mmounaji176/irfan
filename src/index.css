@@ -30,5 +30,5 @@ body {
       rgba(255, 193, 7, 0.2) 0%,
       transparent 45%
     ),
-    linear-gradient(135deg, #2e7d32 0%, #4caf50 100%);
+    linear-gradient(135deg, #4a148c 0%, #7b1fa2 100%);
 }
