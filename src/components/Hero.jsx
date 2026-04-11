@@ -1,15 +1,22 @@
 import { motion } from "framer-motion";
-import { FaArrowRight, FaInfoCircle } from "react-icons/fa";
+import { FaArrowRight } from "react-icons/fa";
+import heroBg from "../assets/hero.png";
 
 export default function Hero() {
   return (
     <section
       id="accueil"
-      className="hero-pattern relative min-h-screen flex items-center justify-center text-white overflow-hidden pt-24 pb-16"
+      className="relative min-h-screen flex items-center justify-center text-white overflow-hidden pt-24 pb-16"
     >
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${heroBg})` }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-purple-900/70 via-purple-800/60 to-orange-600/50" />
+
       <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-10 left-10 w-72 h-72 bg-irfane-yellow rounded-full blur-3xl" />
-        <div className="absolute bottom-10 right-10 w-96 h-96 bg-white rounded-full blur-3xl" />
+        <div className="absolute top-10 left-10 w-72 h-72 bg-yellow-400 rounded-full blur-3xl" />
+        <div className="absolute bottom-10 right-10 w-96 h-96 bg-blue-400 rounded-full blur-3xl" />
       </div>
 
       <div className="relative max-w-5xl mx-auto px-6 text-center z-10">
@@ -17,9 +24,9 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6 }}
-          className="inline-block bg-irfane-yellow text-irfane-dark font-bold px-6 py-2 rounded-full mb-6 shadow-lg"
+          className="inline-block bg-orange-500 text-white font-bold px-6 py-2 rounded-full mb-6 shadow-lg"
         >
-          🎓 School Admission 2024 / 2025
+          🎓 School Admission 2025 / 2026
         </motion.div>
 
         <motion.h1
@@ -29,7 +36,7 @@ export default function Hero() {
           className="text-5xl md:text-7xl font-extrabold mb-4 drop-shadow-lg"
         >
           Etablissement{" "}
-          <span className="text-irfane-yellow">El Irfane</span>
+          <span className="text-orange-400">El Irfane</span>
         </motion.h1>
 
         <motion.p
@@ -59,15 +66,9 @@ export default function Hero() {
         >
           <a
             href="#admissions"
-            className="bg-irfane-orange hover:bg-orange-600 px-8 py-4 rounded-full font-bold shadow-xl flex items-center gap-2 justify-center transition transform hover:scale-105"
+            className="bg-orange-500 hover:bg-orange-600 px-8 py-4 rounded-full font-bold shadow-xl flex items-center gap-2 justify-center transition transform hover:scale-105"
           >
             S'inscrire <FaArrowRight />
-          </a>
-          <a
-            href="#apropos"
-            className="bg-white/15 backdrop-blur border-2 border-white hover:bg-white hover:text-irfane-dark px-8 py-4 rounded-full font-bold flex items-center gap-2 justify-center transition"
-          >
-            <FaInfoCircle /> En savoir plus
           </a>
         </motion.div>
 
@@ -75,7 +76,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8, duration: 0.6 }}
-          className="font-arabic text-3xl mt-12 text-irfane-yellow font-bold"
+          className="font-arabic text-3xl mt-12 text-yellow-400 font-bold"
           dir="rtl"
         >
           التسجيل مفتوح

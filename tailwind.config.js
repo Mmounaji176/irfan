@@ -5,11 +5,13 @@ export default {
     extend: {
       colors: {
         irfane: {
-          dark: "#2e7d32",
-          violet: "#4caf50",
-          light: "#a5d6a7",
-          orange: "#ff9800",
+          dark: "#4a148c",
+          violet: "#7b1fa2",
+          green: "#9c27b0",
+          light: "#ce93d8",
+          orange: "#f57c00",
           yellow: "#ffc107",
+          blue: "#1976d2",
         },
       },
       fontFamily: {

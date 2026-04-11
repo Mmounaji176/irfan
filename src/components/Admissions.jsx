@@ -43,11 +43,8 @@ export default function Admissions() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <div className="inline-block bg-irfane-yellow text-irfane-dark font-bold px-8 py-3 rounded-full mb-4 shadow-xl font-arabic text-2xl">
-            التسجيل مفتوح
-          </div>
           <h2 className="text-4xl md:text-5xl font-extrabold text-white">
-            Admissions 2024 / 2025
+            Admissions 2025 / 2026
           </h2>
           <p className="text-white/80 mt-3">
             Rejoignez notre famille El Irfane dès aujourd'hui
