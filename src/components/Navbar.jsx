@@ -2,13 +2,15 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { FiMenu, FiX } from "react-icons/fi";
 import { FaGraduationCap } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const links = [
-  { href: "#accueil", label: "Accueil" },
-  { href: "#apropos", label: "À propos" },
-  { href: "#niveaux", label: "Niveaux" },
-  { href: "#admissions", label: "Admissions" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#accueil", label: "Accueil" },
+  { href: "/#apropos", label: "À propos" },
+  { href: "/#niveaux", label: "Niveaux" },
+  { href: "/events", label: "Événements" },
+  { href: "/#admissions", label: "Admissions" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 export default function Navbar() {
@@ -33,7 +35,7 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">
-        <a href="#accueil" className="flex items-center gap-2">
+        <Link to="/" className="flex items-center gap-2">
           <div className="w-10 h-10 rounded-full bg-gradient-to-br from-irfane-dark to-irfane-green flex items-center justify-center text-white shadow-md">
             <FaGraduationCap size={20} />
           </div>
@@ -53,28 +55,28 @@ export default function Navbar() {
               Établissement scolaire
             </div>
           </div>
-        </a>
+        </Link>
 
         <ul className="hidden md:flex items-center gap-8">
           {links.map((l) => (
             <li key={l.href}>
-              <a
-                href={l.href}
+              <Link
+                to={l.href}
                 className={`font-medium hover:text-irfane-orange transition ${
                   scrolled ? "text-gray-700" : "text-white"
                 }`}
               >
                 {l.label}
-              </a>
+              </Link>
             </li>
           ))}
           <li>
-            <a
-              href="#admissions"
+            <Link
+              to="/#admissions"
               className="bg-irfane-orange hover:bg-orange-600 text-white px-5 py-2 rounded-full font-semibold shadow-md transition"
             >
               S'inscrire
-            </a>
+            </Link>
           </li>
         </ul>
 
@@ -95,23 +97,23 @@ export default function Navbar() {
         >
           {links.map((l) => (
             <li key={l.href}>
-              <a
-                href={l.href}
+              <Link
+                to={l.href}
                 onClick={() => setOpen(false)}
                 className="block text-gray-700 font-medium hover:text-irfane-dark"
               >
                 {l.label}
-              </a>
+              </Link>
             </li>
           ))}
           <li>
-            <a
-              href="#admissions"
+            <Link
+              to="/#admissions"
               onClick={() => setOpen(false)}
               className="block text-center bg-irfane-orange text-white px-5 py-2 rounded-full font-semibold"
             >
               S'inscrire
-            </a>
+            </Link>
           </li>
         </motion.ul>
       )}

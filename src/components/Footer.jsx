@@ -20,11 +20,31 @@ export default function Footer() {
         <div>
           <h4 className="font-bold mb-4 text-irfane-yellow">Liens rapides</h4>
           <ul className="space-y-2 text-sm text-white/80">
-            <li><a href="#accueil" className="hover:text-irfane-yellow">Accueil</a></li>
-            <li><a href="#apropos" className="hover:text-irfane-yellow">À propos</a></li>
-            <li><a href="#niveaux" className="hover:text-irfane-yellow">Niveaux</a></li>
-            <li><a href="#admissions" className="hover:text-irfane-yellow">Admissions</a></li>
-            <li><a href="#contact" className="hover:text-irfane-yellow">Contact</a></li>
+            <li>
+              <a href="#accueil" className="hover:text-irfane-yellow">
+                Accueil
+              </a>
+            </li>
+            <li>
+              <a href="#apropos" className="hover:text-irfane-yellow">
+                À propos
+              </a>
+            </li>
+            <li>
+              <a href="#niveaux" className="hover:text-irfane-yellow">
+                Niveaux
+              </a>
+            </li>
+            <li>
+              <a href="#admissions" className="hover:text-irfane-yellow">
+                Admissions
+              </a>
+            </li>
+            <li>
+              <a href="#contact" className="hover:text-irfane-yellow">
+                Contact
+              </a>
+            </li>
           </ul>
         </div>
 
@@ -43,7 +63,7 @@ export default function Footer() {
             {[FaFacebook, FaInstagram, FaWhatsapp, FaYoutube].map((Icon, i) => (
               <a
                 key={i}
-                href="#"
+                href="https://www.instagram.com/ey__aaaaaaah/"
                 className="w-10 h-10 rounded-full bg-white/10 hover:bg-irfane-orange flex items-center justify-center transition"
               >
                 <Icon />
@@ -54,7 +74,8 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-white/10 mt-12 pt-6 text-center text-white/60 text-sm">
-        © {new Date().getFullYear()} Etablissement El Irfane. Tous droits réservés.
+        © {new Date().getFullYear()} Etablissement El Irfane. Tous droits
+        réservés.
       </div>
     </footer>
   );
