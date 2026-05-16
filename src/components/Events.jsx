@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   FaCalendarAlt,
@@ -8,111 +8,18 @@ import {
   FaFilter,
 } from "react-icons/fa";
 
-const events = [
-  {
-    id: 1,
-    title: "Journée portes ouvertes",
-    date: "2026-05-10",
-    time: "09:00 - 17:00",
-    location: "Campus El Irfane",
-    category: "Admissions",
-    description:
-      "Venez découvrir notre école, rencontrer nos enseignants et visiter nos installations.",
-    image:
-      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    id: 2,
-    title: "Compétition scientifique inter-écoles",
-    date: "2026-05-22",
-    time: "10:00 - 16:00",
-    location: "Salle polyvalente",
-    category: "Académique",
-    description:
-      "Nos élèves de collège et lycée participent au concours régional de sciences.",
-    image:
-      "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    id: 3,
-    title: "Spectacle de fin d'année",
-    date: "2026-06-18",
-    time: "18:30",
-    location: "Auditorium El Irfane",
-    category: "Culturel",
-    description:
-      "Danse, théâtre et musique : nos élèves montent sur scène pour célébrer l'année.",
-    image:
-      "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    id: 4,
-    title: "Tournoi sportif de printemps",
-    date: "2026-05-03",
-    time: "09:00 - 15:00",
-    location: "Terrain sportif",
-    category: "Sport",
-    description:
-      "Football, basket et athlétisme : une journée dédiée au sport et au fair-play.",
-    image:
-      "https://images.unsplash.com/photo-1459865264687-595d652de67e?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    id: 5,
-    title: "Réunion parents-professeurs",
-    date: "2026-04-30",
-    time: "17:00 - 20:00",
-    location: "Salles de classe",
-    category: "Parents",
-    description:
-      "Rencontre individuelle avec les enseignants pour suivre la progression de votre enfant.",
-    image:
-      "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    id: 6,
-    title: "Sortie pédagogique - Musée de Rabat",
-    date: "2026-05-15",
-    time: "08:30 - 16:00",
-    location: "Musée Mohammed VI, Rabat",
-    category: "Sortie",
-    description:
-      "Les classes du primaire découvrent le patrimoine culturel marocain.",
-    image:
-      "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1200&q=80",
-  },
-];
-
-const announcements = [
-  {
-    id: 1,
-    date: "2026-04-20",
-    title: "Inscriptions 2026/2027 ouvertes",
-    text: "Les inscriptions pour l'année scolaire prochaine sont officiellement ouvertes. Places limitées.",
-  },
-  {
-    id: 2,
-    date: "2026-04-15",
-    title: "Vacances de printemps",
-    text: "L'école sera fermée du 27 avril au 3 mai. Reprise des cours le lundi 4 mai.",
-  },
-  {
-    id: 3,
-    date: "2026-04-08",
-    title: "Nouveau club de robotique",
-    text: "Un club de robotique ouvre ses portes aux élèves du collège. Inscriptions au bureau.",
-  },
-];
-
 const categories = ["Tous", "Admissions", "Académique", "Culturel", "Sport", "Parents", "Sortie"];
 
-const formatDate = (iso) =>
-  new Date(iso).toLocaleDateString("fr-FR", {
+const formatDate = (iso) => {
+  const d = new Date(iso);
+  const adjusted = new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
+  return adjusted.toLocaleDateString("fr-FR", {
     weekday: "long",
     day: "numeric",
     month: "long",
     year: "numeric",
   });
+};
 
 const categoryColor = {
   Admissions: "bg-irfane-orange",
@@ -125,14 +32,30 @@ const categoryColor = {
 
 export default function Events() {
   const [filter, setFilter] = useState("Tous");
+  const [events, setEvents] = useState([]);
+  const [announcements, setAnnouncements] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const visible = useMemo(
-    () =>
-      filter === "Tous"
-        ? events
-        : events.filter((e) => e.category === filter),
-    [filter],
-  );
+  useEffect(() => {
+    const url = filter === "Tous"
+      ? "/api/events"
+      : `/api/events?category=${encodeURIComponent(filter)}`;
+    fetch(url)
+      .then((r) => r.json())
+      .then(setEvents)
+      .catch(console.error);
+  }, [filter]);
+
+  useEffect(() => {
+    setLoading(true);
+    fetch("/api/announcements")
+      .then((r) => r.json())
+      .then(setAnnouncements)
+      .catch(console.error)
+      .finally(() => setLoading(false));
+  }, []);
+
+  const visible = events;
 
   return (
     <main className="pt-28 pb-20 bg-gradient-to-b from-white via-orange-50 to-white min-h-screen">

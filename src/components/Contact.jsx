@@ -1,7 +1,33 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { FaPhoneAlt, FaWhatsapp, FaMapMarkerAlt, FaEnvelope } from "react-icons/fa";
 
 export default function Contact() {
+  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
+  const [status, setStatus] = useState(null); // null | "sending" | "ok" | "error"
+
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus("sending");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (res.ok) {
+        setStatus("ok");
+        setForm({ name: "", email: "", subject: "", message: "" });
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
+  };
+
   return (
     <section id="contact" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6">
@@ -94,41 +120,61 @@ export default function Contact() {
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            onSubmit={(e) => {
-              e.preventDefault();
-              alert("Message envoyé !");
-            }}
+            onSubmit={handleSubmit}
             className="bg-gray-50 p-8 rounded-2xl shadow-lg space-y-4 h-fit"
           >
             <h3 className="text-2xl font-bold text-irfane-dark">
               Envoyez-nous un message
             </h3>
+            {status === "ok" && (
+              <p className="text-green-600 font-semibold bg-green-50 p-3 rounded-lg">
+                Message envoyé avec succès !
+              </p>
+            )}
+            {status === "error" && (
+              <p className="text-red-600 font-semibold bg-red-50 p-3 rounded-lg">
+                Erreur lors de l'envoi. Réessayez.
+              </p>
+            )}
             <input
               required
+              name="name"
+              value={form.name}
+              onChange={handleChange}
               placeholder="Votre nom"
               className="w-full p-3 border border-gray-200 bg-white rounded-lg focus:outline-none focus:border-irfane-green"
             />
             <input
               required
+              name="email"
               type="email"
+              value={form.email}
+              onChange={handleChange}
               placeholder="Votre email"
               className="w-full p-3 border border-gray-200 bg-white rounded-lg focus:outline-none focus:border-irfane-green"
             />
             <input
+              name="subject"
+              value={form.subject}
+              onChange={handleChange}
               placeholder="Sujet"
               className="w-full p-3 border border-gray-200 bg-white rounded-lg focus:outline-none focus:border-irfane-green"
             />
             <textarea
               required
+              name="message"
+              value={form.message}
+              onChange={handleChange}
               rows="5"
               placeholder="Votre message"
               className="w-full p-3 border border-gray-200 bg-white rounded-lg focus:outline-none focus:border-irfane-green resize-none"
             />
             <button
               type="submit"
-              className="w-full bg-irfane-dark hover:bg-irfane-green text-white font-bold py-3 rounded-lg flex items-center justify-center gap-2 transition shadow-lg"
+              disabled={status === "sending"}
+              className="w-full bg-irfane-dark hover:bg-irfane-green text-white font-bold py-3 rounded-lg flex items-center justify-center gap-2 transition shadow-lg disabled:opacity-60"
             >
-              <FaEnvelope /> Envoyer
+              <FaEnvelope /> {status === "sending" ? "Envoi en cours..." : "Envoyer"}
             </button>
           </motion.form>
         </div>
